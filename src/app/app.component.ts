@@ -1,44 +1,47 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { UserService } from './service/user.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Angular-HTTP-API';
 
-  constructor() {
-    type HttpResponse = { code: number; data: string };
+  constructor(private userService: UserService) {}
 
-    const observable = new Observable<HttpResponse>((subscriber) => {
-      console.log('*******************Inside subscriber****************');
-      console.log("This ran second");        
+  ngOnInit(): void {
+    this.onGetUsers();
+    this.onGetUser();
+  }
 
-      subscriber.next({ code: 200, data: 'this is data 1.........' });
-      subscriber.next({ code: 200, data: 'this is data 2.........' });
-      subscriber.next({ code: 200, data: 'this is data 3.........' });
-      subscriber.error({ code: 500, msg: 'An error occurred' });
-      setTimeout(() => {
-        subscriber.next({ code: 200, data: 'this is data more data...' });
-        subscriber.complete();
-      }, 3 * 1000);
-
-      console.log('subscribe is done emitting.......');
+  // To get all the users form Json PlaceHolder APi
+  onGetUsers() {
+    this.userService.getUsers().subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+      error: (data) => {
+        console.log(data);
+      },
+      complete: () => {console.log('Done Getting Users');}
+        
+      
     });
+  }
 
-    observable.subscribe({                    
-      next(response: HttpResponse) {
-        console.log("This ran first");        
-        console.log('got Response: ', response);
+  // To get only one user form Json PlaceHolder APi
+  onGetUser() {
+    this.userService.getUser().subscribe({
+      next: (data) => {
+        console.log(data);
       },
-      error(error: any) {
-        console.error('something wrong occurred: ', error);
+      error: (data) => {
+        console.log(data);
       },
-      complete() {
-        console.log('done');        
-      },
+      complete: () => {console.log('Done Getting User');}
     });
   }
 }
