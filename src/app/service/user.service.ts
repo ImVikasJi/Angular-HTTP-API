@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -12,7 +12,13 @@ export class UserService {
 
   // To fetch all Users
   getUsers(): Observable<User[]>{
-    return this.http.get<User[]>(`${environment.apiUrl}/users`);
+    let myHeaders:any = new HttpHeaders({
+      'myHeader': ['This is Vikas Header','another header value']
+    })
+    myHeaders = myHeaders.set('id', '2211543');
+    myHeaders = myHeaders.append('id', '102141');
+    // myHeaders = myHeaders.has('id');
+    return this.http.get<User[]>(`${environment.apiUrl}/users`,{headers: myHeaders});
   }
 
   // To fetch single User
