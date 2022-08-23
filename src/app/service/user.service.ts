@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -11,8 +11,8 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   // To fetch all Users
-  getUsers(): Observable<User[]> {
-    // HTTP Headers
+  getUsers(): Observable<HttpEvent<User[]>>{
+    //HTTP Headers
     let myHeaders: any = new HttpHeaders({
       myHeader: ['This is Vikas Header', 'another header value'],
     });
@@ -23,9 +23,15 @@ export class UserService {
     let myParams: any = new HttpParams().set('page', '5').set('sort', 'true');
     myParams = myParams.append('web-connect', 'true');
     return this.http.get<User[]>(`${environment.apiUrl}/users`, {
-      headers: myHeaders,
-      params: myParams,
+      observe : 'events'
     });
+  }
+
+  // To get the file type on console
+  getFileType():Observable<string>{
+    return this.http.get(`assets/file.txt`,{
+      responseType: 'text'
+    })
   }
 
   // To fetch single User

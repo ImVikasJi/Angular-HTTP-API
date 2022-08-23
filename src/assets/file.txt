@@ -1,0 +1,9 @@
+To systematically block XSS bugs, Angular treats all values as untrusted by default. 
+When a value is inserted into the DOM from a template binding, or interpolation,
+Angular sanitizes and escapes untrusted values. If a value was already sanitized outside of Angular and is considered safe,
+communicate this to Angular by marking the value as trusted.
+Unlike values to be used for rendering, Angular templates are considered trusted by default,
+and should be treated as executable code.
+Never generate templates by concatenating user input and template syntax.
+Doing this would enable attackers to inject arbitrary code into your application. 
+To prevent these vulnerabilities, always use the default AOT template compiler in production deployments.

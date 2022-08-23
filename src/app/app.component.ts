@@ -41,6 +41,7 @@ export class AppComponent implements OnInit {
     // this.onGetUser();
     this.onUpdateUser();
     this.ondeleteUser();
+    this.onGetFileType();
     
   }
 
@@ -48,7 +49,7 @@ export class AppComponent implements OnInit {
   onGetUsers() {
     this.userService.getUsers().subscribe({
       next: (data) => {
-        console.table(data);
+        console.log(data);
       },
       error: (data) => {
         console.log(data);
@@ -114,5 +115,19 @@ export class AppComponent implements OnInit {
         console.log('Done deleting the user');
       },
     });
+  }
+
+  onGetFileType(){
+    this.userService.getFileType().subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+      error: (data) => {
+        console.log(data);
+      },
+      complete: () => {
+        console.log('Done getting the file Type');
+      },
+    })
   }
 }
