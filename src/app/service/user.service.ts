@@ -54,7 +54,7 @@ export class UserService {
 
   // Using catchError we don't show it on Console we kinda handle it
   getUsers():Observable<User[]>{
-    return this.http.get<User[]>(`${environment.apiUrl}/userss`).pipe(         
+    return this.http.get<User[]>(`${environment.apiUrl}/users`).pipe(         
       catchError((error) =>{
         return of([]);
       })
