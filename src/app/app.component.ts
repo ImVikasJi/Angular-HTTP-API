@@ -11,6 +11,8 @@ import { UserService } from './service/user.service';
 export class AppComponent implements OnInit {
   title = 'Angular-HTTP-API';
 
+  users: User[] | undefined;
+
   private user: User = {
     id: 5,
     name: 'Vikas Singh Bhadoriya',
@@ -50,6 +52,7 @@ export class AppComponent implements OnInit {
     this.userService.getUsers().subscribe({
       next: (data) => {
         console.log(data);
+        this.users = data;
       },
       error: (data) => {
         console.log(data);

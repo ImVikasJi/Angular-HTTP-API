@@ -1,0 +1,11 @@
+.images{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#username{
+    padding: 10px;
+    align-items: stretch;
+}
